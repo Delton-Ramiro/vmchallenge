@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.13.3 on darwin)" generated="2025-04-21T18:17:53.004851" rpa="false" schemaversion="5">
+<suite id="s1" name="Api Test Ab" source="/Users/deltonguivala/Downloads/testando as apis/api_test_ab.robot">
+<kw name="Create Session" owner="RequestsLibrary" type="SETUP">
+<msg time="2025-04-21T18:17:53.131343" level="INFO">Creating Session using : alias=api, url=http://localhost, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>http://localhost</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-04-21T18:17:53.131198" elapsed="0.000952"/>
+</kw>
+<test id="s1-t1" name="TC_API_001 - Criar Usuário com Credenciais Válidas" line="11">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.133317" level="INFO">${data} = {'email': 'validoabc@exemsplo.com', 'username': 'validoabc', 'full_name': 'Usuario Valido', 'disabled': False, 'password': 'SenhaSegura123'}</msg>
+<var>${data}</var>
+<arg>email=validoabc@exemsplo.com</arg>
+<arg>username=validoabc</arg>
+<arg>full_name=Usuario Valido</arg>
+<arg>disabled=${False}</arg>
+<arg>password=SenhaSegura123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.133027" elapsed="0.000364"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-04-21T18:17:53.133810" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.502087" level="INFO">POST Request : url=http://localhost/users (redirected) 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '140', 'Content-Type': 'application/json'} 
+ body=b'{"email": "validoabc@exemsplo.com", "username": "validoabc", "full_name": "Usuario Valido", "disabled": false, "password": "SenhaSegura123"}' 
+ </msg>
+<msg time="2025-04-21T18:17:53.502458" level="INFO">POST Response : url=http://localhost/users/ 
+ status=201, reason=Created 
+ headers={'date': 'Mon, 21 Apr 2025 16:17:52 GMT', 'server': 'uvicorn', 'content-length': '147', 'content-type': 'application/json'} 
+ body={"email":"validoabc@exemsplo.com","username":"validoabc","full_name":"Usuario Valido","disabled":false,"created_at":"2025-04-21T16:17:53Z","id":24} 
+ </msg>
+<msg time="2025-04-21T18:17:53.502742" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users</arg>
+<arg>json=${data}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.133661" elapsed="0.369198"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.504562" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.503455" elapsed="0.001474"/>
+</kw>
+<doc>Cria usuário com credenciais válidas e valida resposta com status 201 e schema.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.132329" elapsed="0.373010"/>
+</test>
+<test id="s1-t2" name="TC_API_002 - Nao Criar Usuário com Senha Fraca Mas Email Certo" line="23">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.507463" level="INFO">${data} = {'email': 'validodef@exemplo.com', 'username': 'validodef_max', 'full_name': 'Teste', 'disabled': False, 'password': 'S'}</msg>
+<var>${data}</var>
+<arg>email=validodef@exemplo.com</arg>
+<arg>username=validodef_max</arg>
+<arg>full_name=Teste</arg>
+<arg>disabled=${False}</arg>
+<arg>password=S</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.506967" elapsed="0.000651"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-04-21T18:17:53.509117" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.822410" level="INFO">POST Request : url=http://localhost/users (redirected) 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '121', 'Content-Type': 'application/json'} 
+ body=b'{"email": "validodef@exemplo.com", "username": "validodef_max", "full_name": "Teste", "disabled": false, "password": "S"}' 
+ </msg>
+<msg time="2025-04-21T18:17:53.822970" level="INFO">POST Response : url=http://localhost/users/ 
+ status=201, reason=Created 
+ headers={'date': 'Mon, 21 Apr 2025 16:17:52 GMT', 'server': 'uvicorn', 'content-length': '141', 'content-type': 'application/json'} 
+ body={"email":"validodef@exemplo.com","username":"validodef_max","full_name":"Teste","disabled":false,"created_at":"2025-04-21T16:17:53Z","id":25} 
+ </msg>
+<msg time="2025-04-21T18:17:53.823419" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users</arg>
+<arg>json=${data}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.509021" elapsed="0.314618"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.825347" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<msg time="2025-04-21T18:17:53.825723" level="FAIL">201 == 201</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="FAIL" start="2025-04-21T18:17:53.824300" elapsed="0.003075">201 == 201</status>
+</kw>
+<doc>Tenta criar usuário com senha fraca mas email válido.</doc>
+<status status="FAIL" start="2025-04-21T18:17:53.505927" elapsed="0.322039">201 == 201</status>
+</test>
+<test id="s1-t3" name="TC_API_003 - Nao Criar Usuário com Email Inválido" line="34">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.831070" level="INFO">${data} = {'email': 'emailinvalido.com', 'username': 'email_errado_aaaa', 'full_name': 'Erro Email', 'disabled': False, 'password': 'QualquerSenha'}</msg>
+<var>${data}</var>
+<arg>email=emailinvalido.com</arg>
+<arg>username=email_errado_aaaa</arg>
+<arg>full_name=Erro Email</arg>
+<arg>disabled=${False}</arg>
+<arg>password=QualquerSenha</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.830202" elapsed="0.001001"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-04-21T18:17:53.831458" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.871371" level="INFO">POST Request : url=http://localhost/users (redirected) 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '138', 'Content-Type': 'application/json'} 
+ body=b'{"email": "emailinvalido.com", "username": "email_errado_aaaa", "full_name": "Erro Email", "disabled": false, "password": "QualquerSenha"}' 
+ </msg>
+<msg time="2025-04-21T18:17:53.871542" level="INFO">POST Response : url=http://localhost/users/ 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Mon, 21 Apr 2025 16:17:53 GMT', 'server': 'uvicorn', 'content-length': '225', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"value_error","loc":["body","email"],"msg":"value is not a valid email address: An email address must have an @-sign.","input":"emailinvalido.com","ctx":{"reason":"An email address must have an @-sign."}}]} 
+ </msg>
+<msg time="2025-04-21T18:17:53.871646" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users</arg>
+<arg>json=${data}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.831381" elapsed="0.040309"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.879281" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.878865" elapsed="0.001310"/>
+</kw>
+<doc>Tenta criar usuário com email inválido mas senha válida.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.828828" elapsed="0.051635"/>
+</test>
+<test id="s1-t4" name="TC_API_004 - Nao Criar Usuário Apenas com Senha" line="45">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.882012" level="INFO">${data} = {'password': 'SomenteSenha'}</msg>
+<var>${data}</var>
+<arg>password=SomenteSenha</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.881532" elapsed="0.000709"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-04-21T18:17:53.882679" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.891633" level="INFO">POST Request : url=http://localhost/users (redirected) 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '28', 'Content-Type': 'application/json'} 
+ body=b'{"password": "SomenteSenha"}' 
+ </msg>
+<msg time="2025-04-21T18:17:53.891796" level="INFO">POST Response : url=http://localhost/users/ 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Mon, 21 Apr 2025 16:17:53 GMT', 'server': 'uvicorn', 'content-length': '322', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"missing","loc":["body","email"],"msg":"Field required","input":{"password":"SomenteSenha"}},{"type":"missing","loc":["body","username"],"msg":"Field required","input":{"password":"SomenteSenha"}},{"type":"missing","loc":["body","full_name"],"msg":"Field required","input":{"password":"SomenteSenha"}}]} 
+ </msg>
+<msg time="2025-04-21T18:17:53.891904" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users</arg>
+<arg>json=${data}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.882606" elapsed="0.009337"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.892491" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.892166" elapsed="0.000417"/>
+</kw>
+<doc>Tenta criar usuário apenas com senha.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.880781" elapsed="0.012045"/>
+</test>
+<test id="s1-t5" name="TC_API_005 - Nao Criar Usuário Sem Corpo" line="52">
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-04-21T18:17:53.894109" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.910182" level="INFO">POST Request : url=http://localhost/users (redirected) 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-04-21T18:17:53.910328" level="INFO">POST Response : url=http://localhost/users/ 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Mon, 21 Apr 2025 16:17:53 GMT', 'server': 'uvicorn', 'content-length': '82', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"missing","loc":["body"],"msg":"Field required","input":null}]} 
+ </msg>
+<msg time="2025-04-21T18:17:53.910424" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.893954" elapsed="0.016508"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.910995" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.910660" elapsed="0.000428"/>
+</kw>
+<doc>Tenta criar usuário sem corpo na requisição.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.893563" elapsed="0.017722"/>
+</test>
+<test id="s1-t6" name="TC_API_006 - Nao Criar Usuário com Email com Caracteres Especiais" line="58">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.912782" level="INFO">${data} = {'email': 'nome!.#invalido@ex@emplo.com', 'username': 'especial', 'full_name': 'Especial', 'disabled': False, 'password': 'senha123'}</msg>
+<var>${data}</var>
+<arg>email=nome!.#invalido@ex@emplo.com</arg>
+<arg>username=especial</arg>
+<arg>full_name=Especial</arg>
+<arg>disabled=${False}</arg>
+<arg>password=senha123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.912581" elapsed="0.000259"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-04-21T18:17:53.912996" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.924569" level="INFO">POST Request : url=http://localhost/users (redirected) 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '133', 'Content-Type': 'application/json'} 
+ body=b'{"email": "nome!.#invalido@ex@emplo.com", "username": "especial", "full_name": "Especial", "disabled": false, "password": "senha123"}' 
+ </msg>
+<msg time="2025-04-21T18:17:53.924829" level="INFO">POST Response : url=http://localhost/users/ 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Mon, 21 Apr 2025 16:17:53 GMT', 'server': 'uvicorn', 'content-length': '280', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"value_error","loc":["body","email"],"msg":"value is not a valid email address: The part after the @-sign contains invalid characters: '@'.","input":"nome!.#invalido@ex@emplo.com","ctx":{"reason":"The part after the @-sign contains invalid characters: '@'."}}]} 
+ </msg>
+<msg time="2025-04-21T18:17:53.924946" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users</arg>
+<arg>json=${data}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.912951" elapsed="0.012036"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.926009" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.925311" elapsed="0.000886"/>
+</kw>
+<doc>Tenta criar usuário com email contendo caracteres especiais.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.911745" elapsed="0.014779"/>
+</test>
+<test id="s1-t7" name="TC_API_007 - Nao Criar Usuário com Email sem Domínio" line="70">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.928335" level="INFO">${data} = {'email': 'email@.com', 'username': 'abcdeeeee', 'full_name': 'abcdee tye', 'disabled': False, 'password': 'senha123'}</msg>
+<var>${data}</var>
+<arg>email=email@.com</arg>
+<arg>username=abcdeeeee</arg>
+<arg>full_name=abcdee tye</arg>
+<arg>disabled=${False}</arg>
+<arg>password=senha123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.927743" elapsed="0.001120"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-04-21T18:17:53.929278" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.937242" level="INFO">POST Request : url=http://localhost/users (redirected) 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '118', 'Content-Type': 'application/json'} 
+ body=b'{"email": "email@.com", "username": "abcdeeeee", "full_name": "abcdee tye", "disabled": false, "password": "senha123"}' 
+ </msg>
+<msg time="2025-04-21T18:17:53.937388" level="INFO">POST Response : url=http://localhost/users/ 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Mon, 21 Apr 2025 16:17:53 GMT', 'server': 'uvicorn', 'content-length': '278', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"value_error","loc":["body","email"],"msg":"value is not a valid email address: An email address cannot have a period immediately after the @-sign.","input":"email@.com","ctx":{"reason":"An email address cannot have a period immediately after the @-sign."}}]} 
+ </msg>
+<msg time="2025-04-21T18:17:53.937499" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users</arg>
+<arg>json=${data}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.929173" elapsed="0.008366"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.938215" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.937799" elapsed="0.000498"/>
+</kw>
+<doc>Tenta criar usuário com email sem domínio.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.926969" elapsed="0.011473"/>
+</test>
+<test id="s1-t8" name="TC_API_008 - Nao Criar Usuário sem Email" line="82">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.952620" level="INFO">${data} = {'username': 'sem_email', 'full_name': 'Sem Email', 'disabled': False, 'password': 'senha123'}</msg>
+<var>${data}</var>
+<arg>username=sem_email</arg>
+<arg>full_name=Sem Email</arg>
+<arg>disabled=${False}</arg>
+<arg>password=senha123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.952128" elapsed="0.000957"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-04-21T18:17:53.956906" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.982379" level="INFO">POST Request : url=http://localhost/users (redirected) 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '94', 'Content-Type': 'application/json'} 
+ body=b'{"username": "sem_email", "full_name": "Sem Email", "disabled": false, "password": "senha123"}' 
+ </msg>
+<msg time="2025-04-21T18:17:53.982536" level="INFO">POST Response : url=http://localhost/users/ 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Mon, 21 Apr 2025 16:17:53 GMT', 'server': 'uvicorn', 'content-length': '173', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"missing","loc":["body","email"],"msg":"Field required","input":{"username":"sem_email","full_name":"Sem Email","disabled":false,"password":"senha123"}}]} 
+ </msg>
+<msg time="2025-04-21T18:17:53.982641" level="INFO">${response} = &lt;Response [422]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users</arg>
+<arg>json=${data}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.956788" elapsed="0.025890"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-04-21T18:17:53.983178" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.982868" elapsed="0.000372"/>
+</kw>
+<doc>Tenta criar usuário sem email.</doc>
+<status status="PASS" start="2025-04-21T18:17:53.939442" elapsed="0.043936"/>
+</test>
+<status status="FAIL" start="2025-04-21T18:17:53.006783" elapsed="0.977309"/>
+</suite>
+<statistics>
+<total>
+<stat pass="7" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Api Test Ab" id="s1" pass="7" fail="1" skip="0">Api Test Ab</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-04-21T18:17:53.133810" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.509117" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.831458" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.882679" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.894109" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.912996" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.929278" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-04-21T18:17:53.956906" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+</errors>
+</robot>
